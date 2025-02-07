@@ -330,30 +330,35 @@
     </div>
 
     <script>
-        // Fungsi untuk memproses file Excel
-        function processExcel() {
+            function processExcel() {
             const fileInput = document.getElementById('excelFile');
             const file = fileInput.files[0];
-
-            if (!file) {
+        
+            if (!file) { 
                 alert("Silakan pilih file Excel terlebih dahulu!");
                 return;
             }
-
+        
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function (e) { 
                 const data = new Uint8Array(e.target.result);
                 const workbook = XLSX.read(data, { type: 'array' });
-
-                // Ambil data dari sheet pertama
-                const sheetName = workbook.SheetNames[0];
-                const sheet = workbook.Sheets[sheetName];
-                const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-                // Update tabel SF
-                updateTable('sfTable', jsonData.slice(1, 14)); // Ambil baris 2-14 untuk tabel SF
-                // Update tabel DATEL
-                updateTable('datelTable', jsonData.slice(15)); // Ambil baris 16 dan seterusnya untuk tabel DATEL
+        
+                // **Ambil data dari sheet pertama untuk sfTable**
+                if (workbook.SheetNames.length > 0) {
+                    const sheet1 = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonDataSF = XLSX.utils.sheet_to_json(sheet1, { header: 1 });
+                    updateTable('sfTable', jsonDataSF.slice(1)); // Masukkan semua data kecuali header ke sfTable
+                }
+        
+                // **Ambil data dari sheet kedua untuk datelTable (jika ada)**
+                if (workbook.SheetNames.length > 1) {
+                    const sheet2 = workbook.Sheets[workbook.SheetNames[1]];
+                    const jsonDataDATEL = XLSX.utils.sheet_to_json(sheet2, { header: 1 });
+                    updateTable('datelTable', jsonDataDATEL.slice(1)); // Masukkan semua data kecuali header ke datelTable
+                } else {
+                    alert("Sheet kedua tidak ditemukan! Pastikan file memiliki 2 sheet.");
+                }
             };
             reader.readAsArrayBuffer(file);
         }
