@@ -277,7 +277,7 @@
                     </div>
                     <ul>
                         <li>Periode Bulan Februari 2025</li>
-                        <li>Data diambil tanggal 06/02/2025 (Update Berkala)</li>
+                        <li id= "tanggal"></li>
                         <li>Minimum 1 Inputan untuk masuk klasemen</li>
                     </ul>
                 </div>
@@ -328,6 +328,12 @@
     </div>
 
     <script>
+            const tanggalSekarang = new Date();
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const tanggalFormat = tanggalSekarang.toLocaleDateString('id-ID', options);
+        
+            document.getElementById("tanggal").innerHTML = `Data ini diambil pada <strong>${tanggalFormat}</strong> (update berkala)`;
+        
             function processExcel() {
             const fileInput = document.getElementById('excelFile');
             const file = fileInput.files[0];
