@@ -393,7 +393,7 @@
         function exportToImage() {
         const element = document.getElementById("capture");
 
-            html2canvas(document.querySelector("#capture"), { scale: 2
+            html2canvas(document.querySelector("#capture"), {
                 useCORS: true
                 }).then(canvas => {
                     let link = document.createElement("a");
