@@ -7,28 +7,28 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Aleo:ital,wght@0,100..900;1,100..900&family=Amiri+Quran&family=Caveat:wght@400..700&family=Gabarito:wght@400..900&family=Gowun+Dodum&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Lexend+Deca:wght@100..900&family=Lilita+One&family=Manjari:wght@100;400;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <!-- Load SheetJS & html2canvas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Aleo:ital,wght@0,100..900;1,100..900&family=Amiri+Quran&family=Caveat:wght@400..700&family=Gabarito:wght@400..900&family=Gowun+Dodum&family=Hammersmith+One&family=Hanalei+Fill&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Knewave&family=Lexend+Deca:wght@100..900&family=Lilita+One&family=Manjari:wght@100;400;700&family=Roboto:wght@700&display=swap" rel="stylesheet">    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
             color: #333;
             margin: 0;
             padding: 10px;
         }
 
-        .isi {
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(bck0.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
         h1 {
             font-size: 58px;
-            margin-bottom: -1px;
+            margin-bottom: -70px;
             font-weight: bold;
             font-family: "lexend deca",serif;
             margin-top: 10px;
@@ -41,14 +41,23 @@
              2px  2px 0 black;
         }
 
+        .isi {
+            background-color: white;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+        }
+
         .kiri {
             transform: translateX(150px);
             width: 600px;
         }
 
         .kanan {
-            width: 200px;
+            width: 400px;
             margin-top: 40px;
+            transform: translateX(120px);
         }
 
         .container {
@@ -57,7 +66,28 @@
             /* justify-content: center; */
             gap: 90px;
             padding: 20px;
-            transform: translateY(50pxpx);
+            transform: translateY(50px);
+        }
+
+        .juaradiv {
+            background-image: url(bck0.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-bottom: 30px;
+        }
+
+        .cyclingdiv {
+            background-image: url(bck3.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-bottom: 30px;
+        }
+
+        .karungdiv {
+            background-image: url(bck5.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-bottom: 30px;
         }
 
         .juara {
@@ -65,6 +95,29 @@
             /* transform: translate(-140px,-160px); */
             display: flex;
             transform: translateX(90px);
+            margin-top: -20px;
+            margin-bottom: 90px;
+        }
+
+        .karung {
+            width: 110%;
+            margin-top: 10px;
+            /* transform: translate(-140px,-160px); */
+            display: none;
+            transform: translateX(90px);
+            gap: 120px;
+            margin-bottom: 90px;
+        }
+
+        .cycling {
+            width: 110%;
+            /* transform: translate(-140px,-160px); */
+            display: none;
+            transform: translateX(90px);
+            margin-bottom: 30px;
+            gap: 90px;
+            margin-top: 20px;
+            margin-bottom: 90px;
         }
 
         .juara1 {
@@ -97,31 +150,33 @@
         }
 
 
-        .kanan table {
-            width: 400px;
+        table {
+            max-width: 1000px;
             border-collapse: collapse;
             background-color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            margin-left: 190px;
+            margin: 0 auto;
+            height: 100px;
         }
 
         tbody {
-            height: 7px;
+            height: 10px;
         }
 
         th, td {
-            padding: 7px;
+            padding: 10px;
             text-align: center;
         }
 
         tr {
-            height: 7px;
+            height: 10px;
         }
 
         th {
             background-color: #4C3D3D;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             font-weight: bold;
             text-transform: uppercase;
@@ -169,11 +224,8 @@
         }
 
         .rank table {
-            border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+
+            height: 100px;
             margin-top: 50px;
             font-size: 15px;
             padding: 10px;
@@ -256,76 +308,94 @@
         }
     </style>
 </head>
-<body>
+    <body>
     <div class="isi" id="capture">
-        <h1>Klasemen AR/SA Februari</h1>
+        <div class="juaradiv" id="background-container">
+            <h1>Klasemen AR/SA Februari</h1>
 
-        <div class="container" >
-            <div class="kiri">
-                <div class="info">
-                    <div class="rank">
-                        <table class="DATEL" id="datelTable">
-                            <tr>
-                                <th>TELDA</th>
-                                <th>TARGET</th>
-                                <th>REAL</th>
-                                <th>ACH</th>
-                            </tr>
-                        </table>
+            <div class="container" >
+                <div class="kiri">
+                    <div class="info">
+                        <div class="rank">
+                            <table class="DATEL" id="datelTable">
+                                <tr>
+                                    <th>TELDA</th>
+                                    <th>TARGET</th>
+                                    <th>REAL</th>
+                                    <th>ACH</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <ul>
+                            <li>Periode Bulan Februari 2025</li>
+                            <li id= "tanggal"></li>
+                            <li>Minimum 1 Inputan untuk masuk klasemen</li>
+                        </ul>
                     </div>
-                    <ul>
-                        <li>Periode Bulan Februari 2025</li>
-                        <li id= "tanggal"></li>
-                        <li>Minimum 1 Inputan untuk masuk klasemen</li>
-                    </ul>
+                        <div class="juara" id="juara">
+                            <div class="juara1"><img src="yunus.png" width="50%" ></div>
+                            <div class="juara2"><img src="whimpy.png" width="50%" ></div>
+                            <div class="juara3"><img src="tatang.png" width="50%"></div>
+                            <div class="juara4"><img src="ulin.png" width="50%" ></div>
+                            <div class="juara5"><img src="henita.png" width="50%" ></div>
+                            <div class="juara6"><img src="galih.png" width="50%" ></div>
+                        </div>
+                        <div class="cycling" id="cycling">
+                            <div class="juara1"><img src="c-yunus.png" width="80%" ></div>
+                            <div class="juara2"><img src="c-tatang.png" width="80%" ></div>
+                            <div class="juara3"><img src="c-whimpy.png" width="80%"></div>
+                            <div class="juara4"><img src="c-henita.png" width="80%" ></div>
+                            <div class="juara5"><img src="c-ulin.png" width="80%" ></div>
+                            <div class="juara6"><img src="c-galih.png" width="80%" ></div>
+                        </div>
+                        <div class="karung" id="karung">
+                            <div class="juara1"><img src="u.png" width="80%" ></div>
+                            <div class="juara2"><img src="w.png" width="80%" ></div>
+                            <div class="juara3"><img src="z.png" width="80%"></div>
+                            <div class="juara4"><img src="x.png" width="80%" ></div>
+                            <div class="juara5"><img src="y.png" width="80%" ></div>
+                            <div class="juara6"><img src="v.png" width="80%" ></div>
+                        </div>
                 </div>
-        
-                <div class="juara">
-                    <div class="juara1"><img src="yunus.png" width="50%" ></div>
-                    <div class="juara2"><img src="whimpy.png" width="50%" ></div>
-                    <div class="juara3"><img src="tatang.png" width="50%"></div>
-                    <div class="juara4"><img src="ulin.png" width="50%" ></div>
-                    <div class="juara5"><img src="henita.png" width="50%" ></div>
-                    <div class="juara6"><img src="galih.png" width="50%" ></div>
+                <div class="kanan">
+                    <table class="SF" id="sfTable">
+                        <tr>
+                            <th>RANK</th>
+                            <th>NAMA SF</th>
+                            <th>INPUTAN</th>
+                            <th>TIM</th>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-            <div class="kanan">
-                <table class="SF" id="sfTable">
-                    <tr>
-                        <th>RANK</th>
-                        <th>NAMA SF</th>
-                        <th>INPUTAN</th>
-                        <th>TIM</th>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
+    
+        <div class="footer">
+            <div class="upload-section">
+                <h2>Update Data dari Excel</h2>
+                <input type="file" id="excelFile" accept=".xlsx, .xls">
+                <button onclick="processExcel()">Update Tabel</button>
+            </div>
+    
+            <div class="button-section">
+                <h2>Ganti Juara</h2>
+                <button onclick="gantiJuara(1)">Ganti Juara 1</button>
+                <button onclick="gantiJuara(2)">Ganti Juara 2</button>
+                <button onclick="gantiJuara(3)">Ganti Juara 3</button>
+                <button onclick="gantiJuara(4)">Ganti Juara 4</button>
+                <button onclick="gantiJuara(5)">Ganti Juara 5</button>
+                <button onclick="gantiJuara(6)">Ganti Juara 6</button>
+            </div>
+    
+            <div class="button-section">
+                <h2>Ekspor Klasemen ke Gambar</h2>
+                <button onclick="exportToImage()">Download Klasemen</button>
+            </div>
 
-    <div class="footer">
-        <div class="upload-section">
-            <h2>Update Data dari Excel</h2>
-            <input type="file" id="excelFile" accept=".xlsx, .xls">
-            <button onclick="processExcel()">Update Tabel</button>
+            <button onclick="toggleClassAndBackground()">Ganti Tampilan & Background</button>
         </div>
-
-        <div class="button-section">
-            <h2>Ganti Juara</h2>
-            <button onclick="gantiJuara(1)">Ganti Juara 1</button>
-            <button onclick="gantiJuara(2)">Ganti Juara 2</button>
-            <button onclick="gantiJuara(3)">Ganti Juara 3</button>
-            <button onclick="gantiJuara(4)">Ganti Juara 4</button>
-            <button onclick="gantiJuara(5)">Ganti Juara 5</button>
-            <button onclick="gantiJuara(6)">Ganti Juara 6</button>
-        </div>
-
-        <div class="button-section">
-            <h2>Ekspor Klasemen ke Gambar</h2>
-            <button onclick="exportToImage()">Download Klasemen</button>
-        </div>
-    </div>
-
-    <script>
+        <script>
             const tanggalSekarang = new Date();
             const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
             const tanggalFormat = tanggalSekarang.toLocaleDateString('id-ID', options);
@@ -381,44 +451,107 @@
             });
         }
 
-        // Fungsi untuk mengganti gambar juara
-        function gantiJuara(juara) {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const imageUrl = e.target.result;
-                        const juaraElement = document.querySelector(`.juara${juara} img`);
-                        if (juaraElement) {
-                            juaraElement.src = imageUrl;
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                }
-            };
-            input.click();
-        }
+            // Fungsi untuk mengganti gambar juara
+            function gantiJuara(juara) {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const imageUrl = e.target.result;
+                            const juaraElement = document.querySelector(`.juara${juara} img`);
+                            if (juaraElement) {
+                                juaraElement.src = imageUrl;
+                            }
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            }
 
-        // Fungsi untuk mengekspor div.container menjadi gambar
-        function exportToImage() {
-        const element = document.getElementById("capture");
+            // Fungsi untuk mengekspor div.container menjadi gambar
+            function exportToImage() {
+            const element = document.getElementById("capture");
 
-            html2canvas(document.querySelector("#capture"), {
-                useCORS: true
-                }).then(canvas => {
-                    let link = document.createElement("a");
-                    link.href = canvas.toDataURL("image/png");
-                    link.download = "klasemen.png";
-                    link.click();
+                html2canvas(document.querySelector("#capture"), {
+                    useCORS: true
+                    }).then(canvas => {
+                        let link = document.createElement("a");
+                        link.href = canvas.toDataURL("image/png");
+                        link.download = "klasemen.png";
+                        link.click();
+                    });
+            }
+
+            let index = 1; // Menyimpan indeks tampilan aktif
+            const sections = ["juara", "cycling", "karung"]; // List div yang akan ditampilkan
+            const backgrounds = ["bck0.png", "bck3.png", "bck5.png"]; // List background
+
+            function toggleClassAndBackground() {
+                // Sembunyikan semua div
+                sections.forEach(section => {
+                    document.querySelector(`.${section}`).style.display = "none";
                 });
+
+                // Ambil elemen yang akan ditampilkan
+                const activeSection = document.querySelector(`.${sections[index]}`);
+                activeSection.style.display = "flex"; // Tampilkan elemen aktif
+
+                // Ganti background
+                document.getElementById("background-container").style.backgroundImage = `url('${backgrounds[index]}')`;
+
+                // Ubah posisi tabel saat berada di div .karung
+                const info = document.querySelector(".info");
+                const judul = document.querySelector("h1");
+                const tabel = document.querySelectorAll("th"); // Returns a NodeList
+                const table = document.querySelectorAll( "table")
+
+                if (sections[index] === "karung") {
+                console.log("Karung section aktif"); // Debugging
+                info.style.color = "black";
+                judul.style.fontFamily = '"Hanalei Fill", serif';
+                judul.style.fontSize = "70px";
+                judul.style.fontWeight = "normal";
+                table.forEach(table => {
+                    table.style.fontFamily = '"Manjari", serif';
+                });
+                
+                tabel.forEach(th => {
+                    th.style.backgroundColor = "#3A7D44";
+                });
+            } else if (sections[index] === "cycling") {
+                console.log("Cycling section aktif"); // Debugging
+                info.style.color = "black";
+                judul.style.fontFamily = '"Lilita One", serif';
+                judul.style.fontSize = "70px";
+                judul.style.fontWeight = "normal";
+                table.forEach(table => {
+                    table.style.fontFamily = '"Aleo", serif';
+                });
+
+                tabel.forEach(th => {
+                    th.style.backgroundColor = "black";
+                });
+            } else {
+                // Reset jika bukan keduanya
+                info.style.color = "";    
+                judul.style.fontFamily = "";
+                judul.style.fontSize = "";
+                judul.style.fontWeight = "";
+                table.forEach(table => {
+                    table.style.fontFamily = "";
+                });
+
+                tabel.forEach(th => {
+                    th.style.backgroundColor = "#4C3D3D";
+                });
+            }
+             // Perbarui indeks untuk tampilan berikutnya (loop dari 0 ke 2)
+            index = (index + 1) % sections.length;
         }
-
-
-    </script>
-
+        </script>
 </body>
-</html>
