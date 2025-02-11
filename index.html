@@ -453,25 +453,29 @@
 
             // Fungsi untuk mengganti gambar juara
             function gantiJuara(juara) {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*';
-                input.onchange = (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            const imageUrl = e.target.result;
-                            const juaraElement = document.querySelector(`.juara${juara} img`);
-                            if (juaraElement) {
-                                juaraElement.src = imageUrl;
-                            }
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                };
-                input.click();
-            }
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageUrl = e.target.result;
+
+                        // Cari elemen gambar di semua div yang memiliki kelas juara, cycling, atau karung
+                        const juaraElements = document.querySelectorAll(`.juara${juara} img, .cycling .juara${juara} img, .karung .juara${juara} img`);
+                        
+                        // Ubah semua gambar yang ditemukan
+                        juaraElements.forEach(img => {
+                            img.src = imageUrl;
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        }
 
             // Fungsi untuk mengekspor div.container menjadi gambar
             function exportToImage() {
