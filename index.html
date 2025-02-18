@@ -52,14 +52,14 @@
         }
 
         .kiri {
-            transform: translateX(30px);
+            transform: translateX(150px);
             width: 600px;
         }
 
         .kanan {
             width: 400px;
             margin-top: 40px;
-            transform: translateX(20px);
+            transform: translateX(120px);
             margin-right: 40px;
             margin-bottom: 30px;
         }
@@ -439,6 +439,16 @@
             margin-left: 360px;
             padding-top: 40px;
             padding-bottom: 40px;
+        }
+
+        @media (max-widht: 800px) {
+            .kiri {
+            transform: translateX(30px);
+            }
+    
+            .kanan {
+                transform: translateX(20px);
+            }
         }
     </style>
 </head>
