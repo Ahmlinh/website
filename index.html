@@ -1,69 +1,142 @@
-
-<html lang="id">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Kearsipan</title>
-    <link rel="stylesheet" href="style.css">
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Kearsipan</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f5f5f5;
+      padding: 15px;
+    }
+    
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #2c3e50;
+      color: white;
+      border-radius: 8px;
+    }
+    
+    header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+    
+    .upload-section {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    
+    .btn-primary:hover {
+      background: #2980b9;
+    }
+    
+    .btn-secondary {
+      display: inline-block;
+      padding: 10px 15px;
+      background: #95a5a6;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    
+    @media (min-width: 768px) {
+      .container {
+        max-width: 600px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Sistem Kearsipan</h1>
-            <p>Unggah dan kelola dokumen Anda dengan mudah</p>
-        </header>
+  <div class="container">
+    <header>
+      <h1>Sistem Kearsipan</h1>
+      <p>Unggah dan kelala dokumen Anda dengan mudah</p>
+    </header>
 
-        <main>
-            <section class="upload-section">
-                <h2>Unggah Dokumen Baru</h2>
-                <form id="uploadForm">
-                    <div class="form-group">
-                        <label for="docName">Nama Dokumen</label>
-                        <input type="text" id="docName" name="docName" required>
-                    </div>
+    <main>
+      <section class="upload-section">
+        <h2>Unggah Dokumen Baru</h2>
+        <form method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="docName">Nama Dokumen *</label>
+            <input type="text" id="docName" name="docName" required>
+          </div>
 
-                    <div class="form-group">
-                        <label for="category">Kategori</label>
-                        <select id="category" name="category" required>
-                            <option value="">Pilih Kategori</option>
-                            <option value="Surat Masuk">Surat Masuk</option>
-                            <option value="Surat Keluar">Surat Keluar</option>
-                            <option value="Dokumen Lain">Dokumen Lain</option>
-                        </select>
-                    </div>
+          <div class="form-group">
+            <label for="category">Kategori *</label>
+            <select id="category" name="category" required>
+              <option value="">Pilih Kategori</option>
+              <option value="Surat Masuk">Surat Masuk</option>
+              <option value="Surat Keluar">Surat Keluar</option>
+              <option value="Dokumen Lain">Dokumen Lain</option>
+            </select>
+          </div>
 
-                    <div class="form-group">
-                        <label for="date">Tanggal (Opsional)</label>
-                        <input type="date" id="date" name="date">
-                    </div>
+          <div class="form-group">
+            <label for="date">Tanggal (Opsional)</label>
+            <input type="date" id="date" name="date">
+          </div>
 
-                    <div class="form-group">
-                        <label for="fileInput">Pilih File</label>
-                        <input type="file" id="fileInput" name="fileInput" required>
-                        <div id="fileInfo" class="file-info"></div>
-                    </div>
+          <div class="form-group">
+            <label for="file">Pilih File *</label>
+            <input type="file" id="file" name="file" required>
+          </div>
 
-                    <button type="submit" id="uploadBtn" class="btn-primary">
-                        <span id="btnText">Unggah Dokumen</span>
-                        <div id="loadingSpinner" class="spinner" style="display: none;"></div>
-                    </button>
-                </form>
-            </section>
-
-            <section id="resultSection" class="result-section" style="display: none;">
-                <h2>Hasil Unggah</h2>
-                <div id="resultMessage" class="result-message"></div>
-                <a id="fileLink" href="#" target="_blank" class="btn-secondary" style="display: none;">Lihat File di Drive</a>
-                <button id="uploadAnother" class="btn-secondary">Unggah Dokumen Lain</button>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2023 Sistem Kearsipan</p>
-        </footer>
-    </div>
-
-    <script src="script.js"></script>
+          <button type="submit" class="btn-primary">Unggah Dokumen</button>
+        </form>
+        
+        <a href="https://ahmlinh.github.io" class="btn-secondary">Kembali ke Website</a>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
-
