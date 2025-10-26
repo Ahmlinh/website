@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Handle form submission
+    // Handle form submission - SOLUSI BARU
     uploadForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -50,12 +50,42 @@ document.addEventListener('DOMContentLoaded', function() {
         setLoadingState(true);
         
         try {
-            // SOLUSI: Gunakan approach dengan redirect
-            await uploadWithRedirect(docName, category, file);
+            // Convert file to base64 untuk dikirim via JSON
+            const base64File = await fileToBase64(file);
+            
+            // Siapkan data
+            const formData = {
+                docName: docName,
+                category: category,
+                date: document.getElementById('date').value,
+                fileName: file.name,
+                fileData: base64File,
+                mimeType: file.type
+            };
+            
+            console.log('Mengirim data...');
+            
+            // Kirim data menggunakan Google Apps Script API
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showResult('success', result.message, result.fileUrl);
+            } else {
+                showResult('error', result.error || 'Upload gagal');
+            }
             
         } catch (error) {
             console.error('Error:', error);
             showResult('error', 'Gagal mengunggah dokumen: ' + error.message);
+        } finally {
             setLoadingState(false);
         }
     });
@@ -67,61 +97,17 @@ document.addEventListener('DOMContentLoaded', function() {
         fileInfo.textContent = '';
     });
 
-    // Fungsi upload dengan redirect approach
-    async function uploadWithRedirect(docName, category, file) {
+    // Fungsi convert file to base64
+    function fileToBase64(file) {
         return new Promise((resolve, reject) => {
-            // Buat form sementara
-            const tempForm = document.createElement('form');
-            tempForm.style.display = 'none';
-            tempForm.method = 'POST';
-            tempForm.action = SCRIPT_URL;
-            tempForm.enctype = 'multipart/form-data';
-            
-            // Tambahkan field data
-            const fields = {
-                'docName': docName,
-                'category': category,
-                'date': document.getElementById('date').value
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                // Hapus data:image/jpeg;base64, prefix
+                const base64 = reader.result.split(',')[1];
+                resolve(base64);
             };
-            
-            for (const [key, value] of Object.entries(fields)) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = value;
-                tempForm.appendChild(input);
-            }
-            
-            // Tambahkan file
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.name = 'file';
-            
-            // Buat new FileList (tidak bisa langsung, jadi kita buat workaround)
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            fileInput.files = dataTransfer.files;
-            
-            tempForm.appendChild(fileInput);
-            document.body.appendChild(tempForm);
-            
-            // Handle response dengan window.postMessage
-            window.addEventListener('message', function(event) {
-                if (event.data && event.data.type === 'uploadResponse') {
-                    document.body.removeChild(tempForm);
-                    
-                    if (event.data.success) {
-                        showResult('success', event.data.message, event.data.fileUrl);
-                    } else {
-                        showResult('error', event.data.error || 'Upload gagal');
-                    }
-                    setLoadingState(false);
-                    resolve();
-                }
-            });
-            
-            // Submit form (ini akan membuka tab baru)
-            tempForm.submit();
+            reader.onerror = error => reject(error);
         });
     }
 
