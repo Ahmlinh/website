@@ -1,71 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Kearsipan</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Sistem Kearsipan</h1>
-            <p>Unggah dan kelola dokumen Anda dengan mudah</p>
-        </header>
 
-        <main>
-            <section class="upload-section">
-                <h2>Unggah Dokumen Baru</h2>
-                <form id="uploadForm">
-                    <div class="form-group">
-                        <label for="docName">Nama Dokumen</label>
-                        <input type="text" id="docName" name="docName" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="category">Kategori</label>
-                        <select id="category" name="category" required>
-                            <option value="">Pilih Kategori</option>
-                            <option value="Surat Masuk">Surat Masuk</option>
-                            <option value="Surat Keluar">Surat Keluar</option>
-                            <option value="Dokumen Lain">Dokumen Lain</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="date">Tanggal (Opsional)</label>
-                        <input type="date" id="date" name="date">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fileInput">Pilih File</label>
-                        <input type="file" id="fileInput" name="fileInput" required>
-                        <div id="fileInfo" class="file-info"></div>
-                    </div>
-
-                    <button type="submit" id="uploadBtn" class="btn-primary">
-                        <span id="btnText">Unggah Dokumen</span>
-                        <div id="loadingSpinner" class="spinner" style="display: none;"></div>
-                    </button>
-                </form>
-            </section>
-
-            <section id="resultSection" class="result-section" style="display: none;">
-                <h2>Hasil Unggah</h2>
-                <div id="resultMessage" class="result-message"></div>
-                <a id="fileLink" href="#" target="_blank" class="btn-secondary" style="display: none;">Lihat File di Drive</a>
-                <button id="uploadAnother" class="btn-secondary">Unggah Dokumen Lain</button>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2023 Sistem Kearsipan</p>
-        </footer>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html><!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -133,3 +66,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
