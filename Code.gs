@@ -1,10 +1,10 @@
 // ID Folder Google Drive tempat file akan disimpan
 // Ganti dengan ID folder Anda
-var FOLDER_ID = 'your_folder_id_here';
+var FOLDER_ID = '1mTWS7Zb8JvAXUgeZbUB6Oi97SVpsMtd0';
 
 // ID Spreadsheet untuk log metadata
 // Ganti dengan ID spreadsheet Anda
-var SPREADSHEET_ID = 'your_spreadsheet_id_here';
+var SPREADSHEET_ID = '1lJa_d4SOTmLu_TqI8rSbjaKJaBw8i5cBYRYOT3TcYB8';
 
 function doPost(e) {
   try {
