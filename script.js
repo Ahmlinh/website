@@ -1,4 +1,3 @@
-// URL Google Apps Script Web App (akan diisi setelah deploy)
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYHRgn859si70wu4zIk7nlqiy8f5HklTtHWjoNswMrw4smf586feUu09brZhzpnfPQ/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -13,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileLink = document.getElementById('fileLink');
     const uploadAnother = document.getElementById('uploadAnother');
 
-    // Tampilkan info file yang dipilih
+    // Tampilkan info file
     fileInput.addEventListener('change', function() {
         if (this.files.length > 0) {
             const file = this.files[0];
@@ -23,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Tangani pengiriman form
-    uploadForm.addEventListener('submit', function(e) {
+    // Handle form submission
+    uploadForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         // Validasi form
@@ -50,48 +49,83 @@ document.addEventListener('DOMContentLoaded', function() {
         // Tampilkan loading
         setLoadingState(true);
         
-        // Siapkan data untuk dikirim
-        const formData = new FormData();
-        formData.append('docName', docName);
-        formData.append('category', category);
-        formData.append('date', document.getElementById('date').value);
-        formData.append('file', file);
-        
-        // Kirim data ke Google Apps Script
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                showResult('success', 'Dokumen berhasil diunggah!', data.fileUrl);
-            } else {
-                throw new Error(data.error || 'Terjadi kesalahan saat mengunggah');
-            }
-        })
-        .catch(error => {
+        try {
+            // SOLUSI: Gunakan approach dengan redirect
+            await uploadWithRedirect(docName, category, file);
+            
+        } catch (error) {
             console.error('Error:', error);
             showResult('error', 'Gagal mengunggah dokumen: ' + error.message);
-        })
-        .finally(() => {
             setLoadingState(false);
-        });
+        }
     });
 
-    // Tombol untuk mengunggah dokumen lain
+    // Tombol upload lagi
     uploadAnother.addEventListener('click', function() {
         resultSection.style.display = 'none';
         uploadForm.reset();
         fileInfo.textContent = '';
     });
 
-    // Fungsi untuk mengatur status loading
+    // Fungsi upload dengan redirect approach
+    async function uploadWithRedirect(docName, category, file) {
+        return new Promise((resolve, reject) => {
+            // Buat form sementara
+            const tempForm = document.createElement('form');
+            tempForm.style.display = 'none';
+            tempForm.method = 'POST';
+            tempForm.action = SCRIPT_URL;
+            tempForm.enctype = 'multipart/form-data';
+            
+            // Tambahkan field data
+            const fields = {
+                'docName': docName,
+                'category': category,
+                'date': document.getElementById('date').value
+            };
+            
+            for (const [key, value] of Object.entries(fields)) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                tempForm.appendChild(input);
+            }
+            
+            // Tambahkan file
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.name = 'file';
+            
+            // Buat new FileList (tidak bisa langsung, jadi kita buat workaround)
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+            
+            tempForm.appendChild(fileInput);
+            document.body.appendChild(tempForm);
+            
+            // Handle response dengan window.postMessage
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'uploadResponse') {
+                    document.body.removeChild(tempForm);
+                    
+                    if (event.data.success) {
+                        showResult('success', event.data.message, event.data.fileUrl);
+                    } else {
+                        showResult('error', event.data.error || 'Upload gagal');
+                    }
+                    setLoadingState(false);
+                    resolve();
+                }
+            });
+            
+            // Submit form (ini akan membuka tab baru)
+            tempForm.submit();
+        });
+    }
+
+    // Fungsi loading state
     function setLoadingState(isLoading) {
         if (isLoading) {
             btnText.textContent = 'Mengunggah...';
@@ -104,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Fungsi untuk menampilkan hasil
+    // Fungsi tampilkan hasil
     function showResult(type, message, fileUrl = null) {
         resultMessage.textContent = message;
         resultMessage.className = 'result-message ' + type;
@@ -120,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resultSection.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Fungsi untuk memformat ukuran file
+    // Fungsi format ukuran file
     function formatFileSize(bytes) {
         if (bytes === 0) return '0 Bytes';
         const k = 1024;
