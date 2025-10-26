@@ -1,5 +1,5 @@
 // URL Google Apps Script Web App (akan diisi setelah deploy)
-const SCRIPT_URL = 'https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwYHRgn859si70wu4zIk7nlqiy8f5HklTtHWjoNswMrw4smf586feUu09brZhzpnfPQ/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
     const uploadForm = document.getElementById('uploadForm');
